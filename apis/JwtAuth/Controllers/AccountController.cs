@@ -16,7 +16,16 @@ public class AccountController(EmailSender emailSender, UserManager<AppUser> use
         var result = await userManager.CreateAsync(user, model.Password);
 
         if (!result.Succeeded)
-            return BadRequest(result.Errors);
+            return BadRequest("Cannot create new account!");
+        
+        try
+        {
+            await emailSender.SendEmailAsync(user.Email, "Register successfully", "Now you can login into our system by using your email address and password.");
+        }
+        catch
+        {
+            return Ok("Account created successfully but cannot send notification to your email");
+        }
 
         return Ok();
     }
