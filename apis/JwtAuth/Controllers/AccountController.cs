@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("account")]
+[Route("api/account")]
 public class AccountController(EmailSender emailSender, UserManager<AppUser> userManager) : ControllerBase
 {
     [HttpPost("register")]
