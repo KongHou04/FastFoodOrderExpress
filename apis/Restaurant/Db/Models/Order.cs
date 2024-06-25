@@ -33,15 +33,15 @@ public class Order
 
     [Required]
     [Range(0, 2)]
-    public int DeliveryStatus = 0;
+    public int DeliveryStatus { get; set;}= 0;
 
     [Required]
     [Range(0, 1)]
-    public int PaymentStatus = 0;
+    public int PaymentStatus { get; set; } = 0;
 
     [Required]
     [Column(TypeName = "Bit")]
-    public bool IsCanceled = false;
+    public bool IsCanceled { get; set; } = false;
 
 
     #region  Relationship config

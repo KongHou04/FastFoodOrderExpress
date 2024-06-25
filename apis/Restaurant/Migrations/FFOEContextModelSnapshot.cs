@@ -170,8 +170,14 @@ namespace restaurant.Migrations
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("DeliveryStatus")
+                        .HasColumnType("int");
+
                     b.Property<double>("Discount")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("Bit");
 
                     b.Property<string>("Note")
                         .HasMaxLength(255)
@@ -179,6 +185,9 @@ namespace restaurant.Migrations
 
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("int");
 
                     b.Property<double>("SubTotal")
                         .HasColumnType("float");

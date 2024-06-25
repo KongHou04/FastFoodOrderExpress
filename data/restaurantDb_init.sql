@@ -36,9 +36,9 @@ GO
 CREATE TABLE [customer] (
     [Id] uniqueidentifier NOT NULL,
     [Name] nvarchar(100) NOT NULL,
-    [Address] nvarchar(max) NOT NULL,
+    [Address] nvarchar(450) NOT NULL,
     [Phone] nvarchar(10) NULL,
-    [Email] nvarchar(max) NOT NULL,
+    [Email] nvarchar(450) NOT NULL,
     CONSTRAINT [PK_customer] PRIMARY KEY ([Id])
 );
 GO
@@ -74,6 +74,9 @@ CREATE TABLE [orders] (
     [Discount] float NOT NULL,
     [Total] float NOT NULL,
     [Note] nvarchar(255) NULL,
+    [DeliveryStatus] int NOT NULL,
+    [PaymentStatus] int NOT NULL,
+    [IsCanceled] Bit NOT NULL,
     [CustomerId] uniqueidentifier NULL,
     CONSTRAINT [PK_orders] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_orders_customer_CustomerId] FOREIGN KEY ([CustomerId]) REFERENCES [customer] ([Id]) ON DELETE SET NULL
@@ -132,6 +135,12 @@ GO
 CREATE INDEX [IX_coupons_CustomerId] ON [coupons] ([CustomerId]);
 GO
 
+CREATE UNIQUE INDEX [IX_customer_Email] ON [customer] ([Email]);
+GO
+
+CREATE UNIQUE INDEX [IX_customer_Phone] ON [customer] ([Phone]) WHERE [Phone] IS NOT NULL;
+GO
+
 CREATE INDEX [IX_discounts_ProductId] ON [discounts] ([ProductId]);
 GO
 
@@ -151,7 +160,7 @@ CREATE UNIQUE INDEX [IX_products_Name] ON [products] ([Name]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20240625073848_FFOEContext_01', N'8.0.6');
+VALUES (N'20240625163130_FFOE_01', N'8.0.6');
 GO
 
 COMMIT;

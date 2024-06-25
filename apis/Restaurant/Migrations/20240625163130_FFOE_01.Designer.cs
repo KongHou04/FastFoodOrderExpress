@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace restaurant.Migrations
 {
     [DbContext(typeof(FFOEContext))]
-    [Migration("20240625162229_FFOE_Context_01")]
-    partial class FFOE_Context_01
+    [Migration("20240625163130_FFOE_01")]
+    partial class FFOE_01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,8 +173,14 @@ namespace restaurant.Migrations
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("DeliveryStatus")
+                        .HasColumnType("int");
+
                     b.Property<double>("Discount")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("Bit");
 
                     b.Property<string>("Note")
                         .HasMaxLength(255)
@@ -182,6 +188,9 @@ namespace restaurant.Migrations
 
                     b.Property<DateTime>("OrderTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("int");
 
                     b.Property<double>("SubTotal")
                         .HasColumnType("float");
