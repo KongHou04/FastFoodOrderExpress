@@ -49,5 +49,8 @@ public class Order
 
     public Guid? CustomerId { get; set; }
 
+    public Guid? CouponId { get; set; }
+    public Coupon? Coupon { get; set; }
+
     #endregion
 }

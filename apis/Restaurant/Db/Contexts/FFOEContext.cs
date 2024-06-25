@@ -88,6 +88,12 @@ public class FFOEContext : DbContext
             .HasForeignKey(cp => cp.CouponTypeId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.Coupon)
+            .WithOne()
+            .HasForeignKey<Order>(o => o.CouponId)
+            .OnDelete(DeleteBehavior.SetNull);
+
 
         modelBuilder.Entity<Customer>()
             .HasMany(ctm => ctm.Coupons)

@@ -165,3 +165,22 @@ GO
 
 COMMIT;
 GO
+
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [orders] ADD [CouponId] uniqueidentifier NULL;
+GO
+
+CREATE UNIQUE INDEX [IX_orders_CouponId] ON [orders] ([CouponId]) WHERE [CouponId] IS NOT NULL;
+GO
+
+ALTER TABLE [orders] ADD CONSTRAINT [FK_orders_coupons_CouponId] FOREIGN KEY ([CouponId]) REFERENCES [coupons] ([Id]) ON DELETE SET NULL;
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240625165514_FFOE_02', N'8.0.6');
+GO
+
+COMMIT;
+GO
