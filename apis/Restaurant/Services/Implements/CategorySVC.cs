@@ -1,4 +1,5 @@
 using Db.Models;
+using Models;
 using Repositories.Interfaces;
 using Services.Interfaces;
 
@@ -27,9 +28,23 @@ public class CategorySVC(ICategoryRES categoryRES) : ICategorySVC
         return categoryRES.Get();
     }
 
-    public Category? GetById(Guid id)
+    // public Category? GetById(Guid id)
+    // {
+    //     return categoryRES.GetById(id);
+    // }
+    public Response GetById(Guid id)
     {
-        return categoryRES.GetById(id);
+        try{
+            var result = categoryRES.GetById(id);
+            if (result is null)
+                return new Response(true, "There are no categories matching the id", null, null);
+
+            return new Response(true, "The category has been found", result, null);
+        }
+        catch(Exception ex)
+        {
+            return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
+        }
     }
 
     public string Update(Category obj, Guid id)

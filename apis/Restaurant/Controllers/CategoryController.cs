@@ -1,5 +1,6 @@
 ﻿using Db.Models;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services.Interfaces;
 
 namespace restaurant.Controllers;
@@ -21,7 +22,7 @@ public class CategoryController(ICategorySVC categorySVC) : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Category? Get(Guid id)
+    public Response Get(Guid id)
     {
         return categorySVC.GetById(id);
     }
