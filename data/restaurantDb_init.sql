@@ -1,3 +1,4 @@
+-- This is init database script
 -- The connection string will depend on the name of the database
 -- USE database
 
