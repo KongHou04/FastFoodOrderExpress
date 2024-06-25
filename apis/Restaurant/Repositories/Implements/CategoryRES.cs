@@ -97,7 +97,7 @@ public class CategoryRES(FFOEContext context) : BaseRES(context), ICategoryRES
         try
         {
             // Retrieve all Category objects from DbSet
-            var categories = context.Set<Category>().ToList();
+            var categories = context.Categories;
             return categories;
         }
         catch (Exception ex)

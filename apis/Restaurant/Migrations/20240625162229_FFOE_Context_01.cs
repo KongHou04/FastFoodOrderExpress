@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace restaurant.Migrations
 {
     /// <inheritdoc />
-    public partial class FFOEContext_01 : Migration
+    public partial class FFOE_Context_01 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -46,9 +46,9 @@ namespace restaurant.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -232,6 +232,19 @@ namespace restaurant.Migrations
                 name: "IX_coupons_CustomerId",
                 table: "coupons",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_customer_Email",
+                table: "customer",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_customer_Phone",
+                table: "customer",
+                column: "Phone",
+                unique: true,
+                filter: "[Phone] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_discounts_ProductId",

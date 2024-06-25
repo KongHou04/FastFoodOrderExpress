@@ -14,6 +14,7 @@ public class Customer
     public string Name { get; set; } = string.Empty;
 
     [Required]
+    [StringLength(450)]
     public string Address { get; set; } = string.Empty;
 
     [StringLength(10)]

@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using Db.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,18 +8,34 @@ public class FFOEContext : DbContext
 {
     public FFOEContext(DbContextOptions<FFOEContext> options) : base(options) {}
 
+    public DbSet<Category> Categories { get; set; }
+    public DbSet<Product> Products { get; set; }
+    public DbSet<ComboDetails> ComboDetails { get; set; }
+    public DbSet<ProductDiscount> ProductDiscounts { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetails> OrderDetails { get; set; }
+    public DbSet<CouponType> CouponTypes { get; set; }
+    public DbSet<Coupon> Coupons { get; set; }
+    public DbSet<Customer> Customers { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
-        // Set unique fiekld
         modelBuilder.Entity<Category>()
             .HasIndex(p => p.Name)
             .IsUnique();
 
-        // Set unique fiekld
         modelBuilder.Entity<Product>()
             .HasIndex(p => p.Name)
+            .IsUnique();
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(p => p.Email)
+            .IsUnique();
+
+        modelBuilder.Entity<Customer>()
+            .HasIndex(p => p.Phone)
             .IsUnique();
 
 
