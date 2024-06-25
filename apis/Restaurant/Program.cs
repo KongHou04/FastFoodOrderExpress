@@ -1,4 +1,5 @@
 using System.Text;
+using Db.Contexts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
 
+
+builder.Services.AddDbContext<FFOEContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:Default"]!);
+});
 
 builder.Services.AddAuthentication(options =>
 {
