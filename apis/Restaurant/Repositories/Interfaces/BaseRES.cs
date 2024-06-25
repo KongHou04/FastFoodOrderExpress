@@ -8,5 +8,5 @@ namespace Repositories.Interfaces;
 /// <param name="context"></param>
 public class BaseRES(FFOEContext context)
 {
-
+    protected FFOEContext context = context;
 }

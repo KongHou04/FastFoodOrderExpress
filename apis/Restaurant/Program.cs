@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Repositories.Implements;
+using Repositories.Interfaces;
+using Services.Implements;
+using Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,12 +42,18 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Email service
 builder.Services.AddSingleton<EmailSender>(options =>
 {
     string username = builder.Configuration["MailInfo:Mail"]?? "";
     string password = builder.Configuration["MailInfo:Password"] ?? "";
     return new EmailSender(username, password);
 });
+
+// Add Application Repositories and Services
+builder.Services.AddScoped<ICategoryRES, CategoryRES>();
+builder.Services.AddScoped<ICategorySVC, CategorySVC>();
+
 
 var app = builder.Build();
 
@@ -55,8 +65,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 
 
 app.Run();
-app.MapControllers();
