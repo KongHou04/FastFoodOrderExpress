@@ -6,7 +6,7 @@ using Services.Interfaces;
 namespace restaurant.Controllers;
 
 [ApiController]
-[Route("api/category")]
+[Route("api/categories")]
 public class CategoryController(ICategorySVC categorySVC) : ControllerBase
 {
     [HttpPost("{name}")]
