@@ -1,3 +1,4 @@
+using System;
 using Db.Models;
 using Models;
 using Repositories.Interfaces;
@@ -7,25 +8,45 @@ namespace Services.Implements;
 
 public class CategorySVC(ICategoryRES categoryRES) : ICategorySVC
 {
-    public string Add(Category obj)
+    public Response Add(Category obj)
     {
-        var result = categoryRES.Add(obj);
-        if (result is null)
-            return "Cannot add new category";
-        return "Add new category successfully";
+        try
+        {
+            var result = categoryRES.Add(obj);
+            return new Response(true, "Add new category successfully", result);
+        }
+        catch (Exception ex)
+        {
+            return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
+        }
     }
 
-    public string Delete(Guid id)
+
+    public Response Delete(Guid id)
     {
-        var result = categoryRES.Delete(id);
-        if (result is null || result == false)
-            return "Cannot delete the category or the category does not exist";
-        return "Delete the category successfully";
+        try
+        {
+            var result = categoryRES.Delete(id);
+            return new Response(true, "Delete the category successfully", result);
+        }
+        catch(Exception ex)
+        {
+            return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
+        }
+
     }
 
-    public IEnumerable<Category> Get()
+    public Response Get()
     {
-        return categoryRES.Get();
+        try
+        {
+            var data = categoryRES.Get();
+            return new Response(true, "Get all categories successfully", data);
+        }
+        catch (Exception ex)
+        {
+            return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
+        }
     }
 
     // public Category? GetById(Guid id)
@@ -34,24 +55,30 @@ public class CategorySVC(ICategoryRES categoryRES) : ICategorySVC
     // }
     public Response GetById(Guid id)
     {
-        try{
+        try
+        {
             var result = categoryRES.GetById(id);
             if (result is null)
-                return new Response(true, "There are no categories matching the id", null, null);
+                return new Response(true, "There are no categories matching the id");
 
-            return new Response(true, "The category has been found", result, null);
+            return new Response(true, "The category has been found", result);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
         }
     }
 
-    public string Update(Category obj, Guid id)
+    public Response Update(Category obj, Guid id)
     {
-        var result = categoryRES.Update(obj, id);
-        if (result is null)
-            return "Cannot update the category";
-        return "Update the category successfully";
+        try
+        {
+            var result = categoryRES.Update(obj, id);
+            return new Response(true, "Update the category successfully", result);
+        }
+        catch(Exception ex)
+        {
+            return new Response(false, "Errors occur from server", null, new List<string> { ex.Message });
+        }
     }
 }

@@ -29,11 +29,13 @@ public class CategoryRES(FFOEContext context) : BaseRES(context), ICategoryRES
         try
         {
             // Add the new category
-            context.Set<Category>().Add(obj);
+            var entry = context.Categories.Add(obj);
+            var addedObj = entry.Entity;
             context.SaveChanges();
 
             // Commit the transaction
             transaction.Commit();
+            return obj;
         }
         catch (Exception)
         {
@@ -42,7 +44,6 @@ public class CategoryRES(FFOEContext context) : BaseRES(context), ICategoryRES
             throw;
         }
 
-        return obj;
     }
 
 

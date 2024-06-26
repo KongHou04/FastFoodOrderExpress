@@ -14,7 +14,7 @@ public class Response
     // Returning Data from an operation
     public object? Data { get; set; } 
 
-    public Response(bool isSuccess, string message ,object? data, List<string>? errors)
+    public Response(bool isSuccess, string message ,object? data = null, List<string>? errors = null)
     {
         IsSuccess = isSuccess;
         Message = message;
