@@ -66,6 +66,29 @@ CREATE TABLE [coupons] (
 );
 GO
 
+CREATE TABLE [combodetails] (
+    [Id] int NOT NULL IDENTITY,
+    [Quantity] int NOT NULL,
+    [ComboId] uniqueidentifier NOT NULL,
+    [ProductId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_combodetails] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_combodetails_products_ComboId] FOREIGN KEY ([ComboId]) REFERENCES [products] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_combodetails_products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [products] ([Id]) ON DELETE NO ACTION
+);
+GO
+
+CREATE TABLE [productdiscounts] (
+    [Id] int NOT NULL IDENTITY,
+    [StartTime] datetime2 NOT NULL,
+    [EndTime] datetime2 NOT NULL,
+    [PercentValue] int NOT NULL,
+    [HardValue] float NOT NULL,
+    [ProductId] uniqueidentifier NOT NULL,
+    CONSTRAINT [PK_productdiscounts] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_productdiscounts_products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [products] ([Id]) ON DELETE CASCADE
+);
+GO
+
 CREATE TABLE [orders] (
     [Id] uniqueidentifier NOT NULL,
     [OrderTime] datetime2 NOT NULL,
@@ -78,31 +101,10 @@ CREATE TABLE [orders] (
     [PaymentStatus] int NOT NULL,
     [IsCanceled] Bit NOT NULL,
     [CustomerId] uniqueidentifier NULL,
+    [CouponId] uniqueidentifier NULL,
     CONSTRAINT [PK_orders] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_orders_coupons_CouponId] FOREIGN KEY ([CouponId]) REFERENCES [coupons] ([Id]) ON DELETE SET NULL,
     CONSTRAINT [FK_orders_customer_CustomerId] FOREIGN KEY ([CustomerId]) REFERENCES [customer] ([Id]) ON DELETE SET NULL
-);
-GO
-
-CREATE TABLE [combodetails] (
-    [Id] int NOT NULL IDENTITY,
-    [Quantity] int NOT NULL,
-    [ComboId] uniqueidentifier NOT NULL,
-    [ProductId] uniqueidentifier NOT NULL,
-    CONSTRAINT [PK_combodetails] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_combodetails_products_ComboId] FOREIGN KEY ([ComboId]) REFERENCES [products] ([Id]) ON DELETE CASCADE,
-    CONSTRAINT [FK_combodetails_products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [products] ([Id]) ON DELETE NO ACTION
-);
-GO
-
-CREATE TABLE [discounts] (
-    [Id] int NOT NULL IDENTITY,
-    [StartTime] datetime2 NOT NULL,
-    [EndTime] datetime2 NOT NULL,
-    [PercentValue] int NOT NULL,
-    [HardValue] float NOT NULL,
-    [ProductId] uniqueidentifier NOT NULL,
-    CONSTRAINT [PK_discounts] PRIMARY KEY ([Id]),
-    CONSTRAINT [FK_discounts_products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [products] ([Id]) ON DELETE CASCADE
 );
 GO
 
@@ -141,16 +143,19 @@ GO
 CREATE UNIQUE INDEX [IX_customer_Phone] ON [customer] ([Phone]) WHERE [Phone] IS NOT NULL;
 GO
 
-CREATE INDEX [IX_discounts_ProductId] ON [discounts] ([ProductId]);
-GO
-
 CREATE INDEX [IX_orderdetails_OrderId] ON [orderdetails] ([OrderId]);
 GO
 
 CREATE INDEX [IX_orderdetails_ProductId] ON [orderdetails] ([ProductId]);
 GO
 
+CREATE UNIQUE INDEX [IX_orders_CouponId] ON [orders] ([CouponId]) WHERE [CouponId] IS NOT NULL;
+GO
+
 CREATE INDEX [IX_orders_CustomerId] ON [orders] ([CustomerId]);
+GO
+
+CREATE INDEX [IX_productdiscounts_ProductId] ON [productdiscounts] ([ProductId]);
 GO
 
 CREATE INDEX [IX_products_CategoryId] ON [products] ([CategoryId]);
@@ -160,26 +165,7 @@ CREATE UNIQUE INDEX [IX_products_Name] ON [products] ([Name]);
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20240625163130_FFOE_01', N'8.0.6');
-GO
-
-COMMIT;
-GO
-
-BEGIN TRANSACTION;
-GO
-
-ALTER TABLE [orders] ADD [CouponId] uniqueidentifier NULL;
-GO
-
-CREATE UNIQUE INDEX [IX_orders_CouponId] ON [orders] ([CouponId]) WHERE [CouponId] IS NOT NULL;
-GO
-
-ALTER TABLE [orders] ADD CONSTRAINT [FK_orders_coupons_CouponId] FOREIGN KEY ([CouponId]) REFERENCES [coupons] ([Id]) ON DELETE SET NULL;
-GO
-
-INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20240625165514_FFOE_02', N'8.0.6');
+VALUES (N'20240627061229_FFOE_01', N'8.0.6');
 GO
 
 COMMIT;

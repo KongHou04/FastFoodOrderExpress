@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace restaurant.Migrations
 {
     [DbContext(typeof(FFOEContext))]
-    [Migration("20240625163130_FFOE_01")]
+    [Migration("20240627061229_FFOE_01")]
     partial class FFOE_01
     {
         /// <inheritdoc />
@@ -170,6 +170,9 @@ namespace restaurant.Migrations
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<Guid?>("CouponId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
@@ -199,6 +202,10 @@ namespace restaurant.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CouponId")
+                        .IsUnique()
+                        .HasFilter("[CouponId] IS NOT NULL");
 
                     b.HasIndex("CustomerId");
 
@@ -305,7 +312,7 @@ namespace restaurant.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("discounts");
+                    b.ToTable("productdiscounts");
                 });
 
             modelBuilder.Entity("Db.Models.ComboDetails", b =>
@@ -341,10 +348,17 @@ namespace restaurant.Migrations
 
             modelBuilder.Entity("Db.Models.Order", b =>
                 {
+                    b.HasOne("Db.Models.Coupon", "Coupon")
+                        .WithOne()
+                        .HasForeignKey("Db.Models.Order", "CouponId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Db.Models.Customer", null)
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Coupon");
                 });
 
             modelBuilder.Entity("Db.Models.OrderDetails", b =>

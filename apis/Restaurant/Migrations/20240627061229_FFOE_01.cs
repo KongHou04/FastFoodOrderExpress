@@ -104,33 +104,6 @@ namespace restaurant.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "orders",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
-                    SubTotal = table.Column<double>(type: "float", nullable: false),
-                    Discount = table.Column<double>(type: "float", nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    DeliveryStatus = table.Column<int>(type: "int", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
-                    IsCanceled = table.Column<bool>(type: "Bit", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_orders_customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "customer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "combodetails",
                 columns: table => new
                 {
@@ -158,7 +131,7 @@ namespace restaurant.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "discounts",
+                name: "productdiscounts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -171,13 +144,47 @@ namespace restaurant.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_discounts", x => x.Id);
+                    table.PrimaryKey("PK_productdiscounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_discounts_products_ProductId",
+                        name: "FK_productdiscounts_products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrderTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    SubTotal = table.Column<double>(type: "float", nullable: false),
+                    Discount = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    DeliveryStatus = table.Column<int>(type: "int", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
+                    IsCanceled = table.Column<bool>(type: "Bit", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CouponId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_orders_coupons_CouponId",
+                        column: x => x.CouponId,
+                        principalTable: "coupons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                    table.ForeignKey(
+                        name: "FK_orders_customer_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "customer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,11 +257,6 @@ namespace restaurant.Migrations
                 filter: "[Phone] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_discounts_ProductId",
-                table: "discounts",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_orderdetails_OrderId",
                 table: "orderdetails",
                 column: "OrderId");
@@ -265,9 +267,21 @@ namespace restaurant.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_orders_CouponId",
+                table: "orders",
+                column: "CouponId",
+                unique: true,
+                filter: "[CouponId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_orders_CustomerId",
                 table: "orders",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_productdiscounts_ProductId",
+                table: "productdiscounts",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_products_CategoryId",
@@ -288,16 +302,10 @@ namespace restaurant.Migrations
                 name: "combodetails");
 
             migrationBuilder.DropTable(
-                name: "coupons");
-
-            migrationBuilder.DropTable(
-                name: "discounts");
-
-            migrationBuilder.DropTable(
                 name: "orderdetails");
 
             migrationBuilder.DropTable(
-                name: "coupontypes");
+                name: "productdiscounts");
 
             migrationBuilder.DropTable(
                 name: "orders");
@@ -306,10 +314,16 @@ namespace restaurant.Migrations
                 name: "products");
 
             migrationBuilder.DropTable(
-                name: "customer");
+                name: "coupons");
 
             migrationBuilder.DropTable(
                 name: "categories");
+
+            migrationBuilder.DropTable(
+                name: "coupontypes");
+
+            migrationBuilder.DropTable(
+                name: "customer");
         }
     }
 }

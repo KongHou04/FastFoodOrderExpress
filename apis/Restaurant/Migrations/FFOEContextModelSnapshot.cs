@@ -309,7 +309,7 @@ namespace restaurant.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("discounts");
+                    b.ToTable("productdiscounts");
                 });
 
             modelBuilder.Entity("Db.Models.ComboDetails", b =>

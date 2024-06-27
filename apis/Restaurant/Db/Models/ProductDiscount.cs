@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Db.Models;
 
-[Table("discounts")]
+[Table("productdiscounts")]
 public class ProductDiscount
 {
     [Key]
