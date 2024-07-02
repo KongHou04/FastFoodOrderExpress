@@ -12,6 +12,7 @@ public interface IProductDiscountRES
     /// </summary>
     /// <param name="productId">The unique identifier of the product.</param>
     /// <returns>An <see cref="IEnumerable{ProductDiscount}"/> containing all discounts for the specified product.</returns>
+    /// <exception cref="Exception">Thrown when an error occurs during the operation.</exception>
     public IEnumerable<ProductDiscount> GetByProduct(Guid productId);
 
     /// <summary>
@@ -19,21 +20,24 @@ public interface IProductDiscountRES
     /// </summary>
     /// <param name="id">The unique identifier of the product discount to retrieve.</param>
     /// <returns>The product discount if found; otherwise, null.</returns>
+    /// <exception cref="Exception">Thrown when an error occurs during the operation.</exception>
     public ProductDiscount? GetById(int id);
 
     /// <summary>
     /// Adds a new product discount to the database.
     /// </summary>
     /// <param name="obj">The product discount to add to the database.</param>
-    /// <returns>The added product discount, or <c>null</c> if the operation failed.</returns>
-    public ProductDiscount? Add(ProductDiscount obj);
+    /// <returns>The added product discount.</returns>
+    /// <exception cref="Exception">Thrown when an error occurs during the operation.</exception>
+    public ProductDiscount Add(ProductDiscount obj);
 
     /// <summary>
     /// Updates an existing product discount in the database.
     /// </summary>
     /// <param name="obj">The updated product discount to save in the database.</param>
     /// <param name="id">The unique identifier of the product discount to be updated.</param>
-    /// <returns>The updated product discount if the update was successful, or <c>null</c> if no matching product discount was found or the operation failed.</returns>
+    /// <returns>The updated product discount if the update was successful, or <c>null</c> if no matching product discount was found.</returns>
+    /// <exception cref="Exception">Thrown when an error occurs during the operation.</exception>
     public ProductDiscount? Update(ProductDiscount obj, int id);
 
     /// <summary>
@@ -42,8 +46,8 @@ public interface IProductDiscountRES
     /// <param name="id">The unique identifier of the product discount to be deleted.</param>
     /// <returns>
     /// <c>true</c> if the product discount was successfully deleted; 
-    /// <c>false</c> if no matching product discount was found; 
-    /// <c>null</c> if the deletion failed due to an error.
+    /// <c>false</c> if no matching product discount was found.
     /// </returns>
-    public bool? Delete(int id);
+    /// <exception cref="Exception">Thrown when an error occurs during the operation.</exception>
+    public bool Delete(int id);
 }

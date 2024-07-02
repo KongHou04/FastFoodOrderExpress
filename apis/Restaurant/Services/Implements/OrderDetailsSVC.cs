@@ -2,7 +2,7 @@ using Services.Interfaces;
 
 namespace Services.Implements;
 
-publuc class OrderDetailsSVC : IOrderDetailsSVC
+public class OrderDetailsSVC : IOrderDetailsSVC
 {
     
 }
