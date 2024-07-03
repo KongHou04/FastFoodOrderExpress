@@ -13,7 +13,7 @@ public interface IProductDiscountSVC
     /// </summary>
     /// <param name="productId">The unique identifier of the product.</param>
     /// <returns>A Response object containing the list of discounts for the product and status information about the retrieval process.</returns>
-    Response GetByProductId(Guid productId);
+    Response GetByProduct(Guid productId);
 
 
 
@@ -32,7 +32,7 @@ public interface IProductDiscountSVC
     /// <param name="obj">The updated details of the product discount.</param>
     /// <param name="id">The unique identifier of the product discount to update.</param>
     /// <returns>A Response object indicating the result of the update operation and status information about the update process.</returns>
-    Response Update(ProductDiscount obj, Guid id);
+    Response Update(ProductDiscount obj, int id);
 
 
 
@@ -41,5 +41,5 @@ public interface IProductDiscountSVC
     /// </summary>
     /// <param name="id">The unique identifier of the product discount to delete.</param>
     /// <returns>A Response object indicating the result of the delete operation and status information about the delete process.</returns>
-    Response Delete(Guid id);
+    Response Delete(int id);
 }

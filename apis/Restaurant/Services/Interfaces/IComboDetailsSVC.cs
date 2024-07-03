@@ -13,7 +13,7 @@ public interface IComboDetailsSVC
     /// </summary>
     /// <param name="id">The unique identifier of the combo to retrieve details for.</param>
     /// <returns>A Response object containing the details of the specified combo and status information about the retrieval process.</returns>
-    Response GetByComboId(Guid id);
+    Response GetByCombo(Guid id);
 
 
 
@@ -32,7 +32,7 @@ public interface IComboDetailsSVC
     /// <param name="obj">The updated details of the combo detail.</param>
     /// <param name="id">The unique identifier of the combo detail to update.</param>
     /// <returns>A Response object indicating the result of the update operation and status information about the update process.</returns>
-    Response Update(ComboDetails obj, Guid id);
+    Response Update(ComboDetails obj, int id);
 
 
 
@@ -41,5 +41,5 @@ public interface IComboDetailsSVC
     /// </summary>
     /// <param name="id">The unique identifier of the combo detail to delete.</param>
     /// <returns>A Response object indicating the result of the delete operation and status information about the delete process.</returns>
-    Response Delete(Guid id);
+    Response Delete(int id);
 }
