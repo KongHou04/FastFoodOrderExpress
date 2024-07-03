@@ -1,10 +1,10 @@
 --USE FFOE;
 --SELECT * FROM [categories];
 --SELECT * FROM [products];
---SELECT * FROM [discounts];
+--SELECT * FROM [productdiscounts];
 --DELETE FROM [categories];
 --DELETE FROM [products];
---DELETE FROM [discounts];
+--DELETE FROM [productdiscounts];
 
 BEGIN TRANSACTION;
 GO
@@ -95,7 +95,7 @@ DECLARE @ProductId9 uniqueidentifier = (SELECT TOP 1 Id FROM [products] WHERE [N
 DECLARE @ProductId10 uniqueidentifier = (SELECT TOP 1 Id FROM [products] WHERE [Name] = 'Hawaiian Pizza');
 
 -- Insert data into discounts table
-INSERT INTO [discounts] ([StartTime], [EndTime], [PercentValue], [HardValue], [ProductId])
+INSERT INTO [productdiscounts] ([StartTime], [EndTime], [PercentValue], [HardValue], [ProductId])
 VALUES 
     (GETDATE(), DATEADD(day, 30, GETDATE()), 10, 0, @ProductId1),
     (GETDATE(), DATEADD(day, 30, GETDATE()), 15, 0, @ProductId2),

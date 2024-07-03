@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services.Interfaces;
 
-namespace restaurant.Controllers;
+namespace Controllers;
 
 [ApiController]
 [Route("api/categories")]

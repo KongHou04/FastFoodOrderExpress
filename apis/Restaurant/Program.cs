@@ -53,6 +53,8 @@ builder.Services.AddSingleton<EmailSender>(options =>
 // Add Application Repositories and Services
 builder.Services.AddScoped<ICategoryRES, CategoryRES>();
 builder.Services.AddScoped<ICategorySVC, CategorySVC>();
+builder.Services.AddScoped<IProductRES, ProductRES>();
+builder.Services.AddScoped<IProductSVC, ProductSVC>();
 
 
 var app = builder.Build();
