@@ -47,6 +47,19 @@ public class ComboDetailsSVC(IComboDetailsRES comboDetailsRES) : IComboDetailsSV
         }
     }
 
+    public Response GetById(int id)
+    {
+        try
+        {
+            var result = comboDetailsRES.GetById(id);
+            return new Response(true, "Get combo detail successfully.", result);
+        }
+        catch (Exception ex)
+        {
+            return new Response(false, "Error occurred while retriving the combo detail.", null, new List<string> { ex.Message });
+        }
+    }
+
     public Response Update(ComboDetails obj, int id)
     {
         try

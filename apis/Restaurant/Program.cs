@@ -55,6 +55,14 @@ builder.Services.AddScoped<ICategoryRES, CategoryRES>();
 builder.Services.AddScoped<ICategorySVC, CategorySVC>();
 builder.Services.AddScoped<IProductRES, ProductRES>();
 builder.Services.AddScoped<IProductSVC, ProductSVC>();
+builder.Services.AddScoped<IProductDiscountRES, ProductDiscountRES>();
+builder.Services.AddScoped<IProductDiscountSVC, ProductDiscountSVC>();
+builder.Services.AddScoped<IComboDetailsRES, ComboDetailsRES>();
+builder.Services.AddScoped<IComboDetailsSVC, ComboDetailsSVC>();
+builder.Services.AddScoped<IOrderRES, OrderRES>();
+builder.Services.AddScoped<IOrderSVC, OrderSVC>();
+builder.Services.AddScoped<IOrderDetailsRES, OrderDetailsRES>();
+builder.Services.AddScoped<IOrderDetailsSVC, OrderDetailsSVC>();
 
 
 var app = builder.Build();

@@ -11,22 +11,22 @@ public class OrderDetailsSVC : IOrderDetailsSVC
         throw new NotImplementedException();
     }
 
-    public Response Delete(Guid id)
+    public Response Delete(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Response Get()
+    public Response GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public Response GetById(Guid id)
+    public Response GetByOrder(Guid orderId)
     {
         throw new NotImplementedException();
     }
 
-    public Response Update(OrderDetails obj, Guid id)
+    public Response Update(OrderDetails obj, int id)
     {
         throw new NotImplementedException();
     }
