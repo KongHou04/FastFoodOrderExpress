@@ -5,7 +5,7 @@ namespace Repositories.Implements;
 
 public class OrderRES : IOrderRES
 {
-    public Order? Add(Order obj)
+    public Order Add(Order obj)
     {
         throw new NotImplementedException();
     }
@@ -15,7 +15,7 @@ public class OrderRES : IOrderRES
         throw new NotImplementedException();
     }
 
-    public bool? Delete(Guid id)
+    public bool Delete(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -30,7 +30,7 @@ public class OrderRES : IOrderRES
         throw new NotImplementedException();
     }
 
-    public Order? GetByUser(Guid userId)
+    public IEnumerable<Order> GetByCustomer(Guid customerId)
     {
         throw new NotImplementedException();
     }

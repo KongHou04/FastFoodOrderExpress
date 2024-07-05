@@ -12,6 +12,7 @@ public interface IOrderRES
     /// </summary>
     /// <param name="numberOfOrder">The number of orders to retrieve.</param>
     /// <returns>An <see cref="IEnumerable{Order}"/> containing the specified number of orders.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
     public IEnumerable<Order> Get(int numberOfOrder);
 
     /// <summary>
@@ -19,28 +20,32 @@ public interface IOrderRES
     /// </summary>
     /// <param name="id">The unique identifier of the order to retrieve.</param>
     /// <returns>The order if found; otherwise, null.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the order.</exception>
     public Order? GetById(Guid id);
 
     /// <summary>
-    /// Retrieves orders by a specific user identifier.
+    /// Retrieves orders by a specific customer identifier.
     /// </summary>
-    /// <param name="userId">The unique identifier of the user whose orders to retrieve.</param>
-    /// <returns>The orders of the specified user if found; otherwise, null.</returns>
-    public Order? GetByUser(Guid userId);
+    /// <param name="customerId">The unique identifier of the customer whose orders to retrieve.</param>
+    /// <returns>The An <see cref="IEnumerable{Order}"/> of the specified customer if found</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
+    public IEnumerable<Order> GetByCustomer(Guid customerId);
 
     /// <summary>
     /// Adds a new order to the database.
     /// </summary>
     /// <param name="obj">The order to add to the database.</param>
-    /// <returns>The added order, or <c>null</c> if the operation failed.</returns>
-    public Order? Add(Order obj);
+    /// <returns>The added order.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the adding order.</exception>
+    public Order Add(Order obj);
 
     /// <summary>
     /// Updates an existing order in the database. Should not use this to update status of the order.
     /// </summary>
     /// <param name="obj">The updated order to save in the database.</param>
     /// <param name="id">The unique identifier of the order to be updated.</param>
-    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found or the operation failed.</returns>
+    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the updating order.</exception>
     public Order? Update(Order obj, Guid id);
 
     /// <summary>
@@ -48,7 +53,8 @@ public interface IOrderRES
     /// </summary>
     /// <param name="status">The new delivery status to set.</param>
     /// <param name="id">The unique identifier of the order to update.</param>
-    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found or the operation failed.</returns>
+    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the updating order.</exception>
     public Order? UpdateDeliveryStatus(int status, Guid id);
 
     /// <summary>
@@ -56,14 +62,16 @@ public interface IOrderRES
     /// </summary>
     /// <param name="status">The new payment status to set.</param>
     /// <param name="id">The unique identifier of the order to update.</param>
-    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found or the operation failed.</returns>
+    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the updating order.</exception>
     public Order? UpdatePaymentStatus(int status, Guid id);
 
     /// <summary>
     /// Cancels an order.
     /// </summary>
     /// <param name="id">The unique identifier of the order to cancel.</param>
-    /// <returns>The cancelled order if the operation was successful, or <c>null</c> if no matching order was found or the operation failed.</returns>
+    /// <returns>The cancelled order if the operation was successful, or <c>null</c> if no matching order was found.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the updating order.</exception>
     public Order? Cancel(Guid id);
 
     /// <summary>
@@ -73,7 +81,7 @@ public interface IOrderRES
     /// <returns>
     /// <c>true</c> if the order was successfully deleted; 
     /// <c>false</c> if no matching order was found; 
-    /// <c>null</c> if the deletion failed due to an error.
     /// </returns>
-    public bool? Delete(Guid id);
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the deleting order.</exception>
+    public bool Delete(Guid id);
 }

@@ -12,6 +12,7 @@ public interface IOrderDetailsRES
     /// </summary>
     /// <param name="orderId">The unique identifier of the order whose details to retrieve.</param>
     /// <returns>An <see cref="IEnumerable{OrderDetails}"/> containing the details of the specified order.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
     public IEnumerable<OrderDetails> GetByOrder(Guid orderId);
 
     /// <summary>
@@ -19,21 +20,24 @@ public interface IOrderDetailsRES
     /// </summary>
     /// <param name="id">The unique identifier of the order detail to retrieve.</param>
     /// <returns>The order detail if found; otherwise, null.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
     public OrderDetails? GetById(int id);
 
     /// <summary>
     /// Adds a new order detail to the database.
     /// </summary>
     /// <param name="obj">The order detail to add to the database.</param>
-    /// <returns>The added order detail, or <c>null</c> if the operation failed.</returns>
-    public OrderDetails? Add(OrderDetails obj);
+    /// <returns>The added order detail.</returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
+    public OrderDetails Add(OrderDetails obj);
 
     /// <summary>
     /// Updates an existing order detail in the database. Should not be used to update the status of the order.
     /// </summary>
     /// <param name="obj">The updated order detail to save in the database.</param>
     /// <param name="id">The unique identifier of the order detail to be updated.</param>
-    /// <returns>The updated order detail if the update was successful, or <c>null</c> if no matching order detail was found or the operation failed.</returns>
+    /// <returns>The updated order detail if the update was successful, or <c>null</c> if no matching order detail was found </returns>
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
     public OrderDetails? Update(OrderDetails obj, int id);
 
     /// <summary>
@@ -43,7 +47,7 @@ public interface IOrderDetailsRES
     /// <returns>
     /// <c>true</c> if the order detail was successfully deleted; 
     /// <c>false</c> if no matching order detail was found; 
-    /// <c>null</c> if the deletion failed due to an error.
     /// </returns>
-    public bool? Delete(int id);
+    /// <exception cref="Exception">Thrown if an error occurs while retrieving the orders.</exception>
+    public bool Delete(int id);
 }

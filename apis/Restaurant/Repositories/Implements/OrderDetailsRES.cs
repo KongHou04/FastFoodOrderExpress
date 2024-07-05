@@ -5,12 +5,12 @@ namespace Repositories.Implements;
 
 public class OrderDetailsRES : IOrderDetailsRES
 {
-    public OrderDetails? Add(OrderDetails obj)
+    public OrderDetails Add(OrderDetails obj)
     {
         throw new NotImplementedException();
     }
 
-    public bool? Delete(int id)
+    public bool Delete(int id)
     {
         throw new NotImplementedException();
     }
