@@ -6,12 +6,12 @@ namespace Services.Implements;
 
 public class CouponSVC : ICouponSVC
 {
-    public Response Add(int couponTypeId, int quantity = 1)
+    public Response Add(int couponTypeId, int quantity = 20)
     {
         throw new NotImplementedException();
     }
 
-    public Response Delete(int id)
+    public Response Delete(Guid id)
     {
         throw new NotImplementedException();
     }
@@ -21,17 +21,17 @@ public class CouponSVC : ICouponSVC
         throw new NotImplementedException();
     }
 
-    public Response GetByUserId(Guid userId)
+    public Response GetByCustomer(Guid customerId)
     {
         throw new NotImplementedException();
     }
 
-    public Response GetValidByUserId(Guid userId)
+    public Response GetValidByCustomer(Guid customerId)
     {
         throw new NotImplementedException();
     }
 
-    public Response Update(Coupon obj, int id)
+    public Response Update(Coupon obj, Guid id)
     {
         throw new NotImplementedException();
     }

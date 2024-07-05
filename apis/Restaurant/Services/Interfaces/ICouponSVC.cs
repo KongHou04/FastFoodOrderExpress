@@ -11,16 +11,16 @@ public interface ICouponSVC
     /// <summary>
     /// Retrieves valid coupons for a specific user identified by their unique identifier.
     /// </summary>
-    /// <param name="userId">The unique identifier of the user.</param>
+    /// <param name="customerId">The unique identifier of the customer.</param>
     /// <returns>A Response object containing the list of valid coupons for the user and status information about the retrieval process.</returns>
-    public Response GetValidByUserId(Guid userId);
+    public Response GetValidByCustomer(Guid customerId);
 
     /// <summary>
     /// Retrieves all coupons for a specific user identified by their unique identifier.
     /// </summary>
-    /// <param name="userId">The unique identifier of the user.</param>
+    /// <param name="customerId">The unique identifier of the customer.</param>
     /// <returns>A Response object containing the list of all coupons for the user and status information about the retrieval process.</returns>
-    public Response GetByUserId(Guid userId);
+    public Response GetByCustomer(Guid customerId);
 
     /// <summary>
     /// Retrieves a specific coupon by its unique identifier.
@@ -35,7 +35,7 @@ public interface ICouponSVC
     /// <param name="couponTypeId">The unique identifier of the coupon type to add.</param>
     /// <param name="quantity">The quantity of coupons to add (default is 1).</param>
     /// <returns>A Response object indicating the result of the add operation and status information about the add process.</returns>
-    public Response Add(int couponTypeId, int quantity = 1);
+    public Response Add(int couponTypeId, int quantity = 20);
 
     /// <summary>
     /// Updates an existing coupon. This is not recommend
@@ -43,7 +43,7 @@ public interface ICouponSVC
     /// <param name="obj">The updated details of the coupon.</param>
     /// <param name="id">The unique identifier of the coupon to update.</param>
     /// <returns>A Response object indicating the result of the update operation and status information about the update process.</returns>
-    public Response Update(Coupon obj, int id);
+    public Response Update(Coupon obj, Guid id);
 
     /// <summary>
     /// Give user the quantity of coupon in a specific coupon type
@@ -59,5 +59,5 @@ public interface ICouponSVC
     /// </summary>
     /// <param name="id">The unique identifier of the coupon to delete.</param>
     /// <returns>A Response object indicating the result of the delete operation and status information about the delete process.</returns>
-    public Response Delete(int id);
+    public Response Delete(Guid id);
 }
