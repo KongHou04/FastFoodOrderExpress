@@ -5,6 +5,7 @@
 --DELETE FROM [categories];
 --DELETE FROM [products];
 --DELETE FROM [productdiscounts];
+-- Update description
 
 BEGIN TRANSACTION;
 GO
