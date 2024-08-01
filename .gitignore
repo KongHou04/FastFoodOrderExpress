@@ -62,7 +62,6 @@ artifacts/
 local.settings.json
 
 # ASP.NET/ASP.NET Core
-wwwroot/
 build/
 publish/
 
