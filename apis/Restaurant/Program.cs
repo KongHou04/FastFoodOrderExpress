@@ -17,6 +17,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:52326", "http://localhost:5089", "https://localhost:7280", "http://localhost:5089",
+                                "http://localhost:52991", "http://localhost:5016", "https://localhost:7051", "http://localhost:5016")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 // Add DbContexts
 builder.Services.AddDbContext<FFOEContext>(options =>
@@ -90,6 +101,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowSpecificOrigins");
 app.UseHttpsRedirection();
 app.MapControllers();
 
