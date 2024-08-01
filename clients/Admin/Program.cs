@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7032/api/") });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
