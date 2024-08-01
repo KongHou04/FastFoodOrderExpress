@@ -71,12 +71,7 @@ else
 
         if (apiResponse.IsSuccess)
         {
-            await JS.InvokeVoidAsync("ShowAlert", "Delete success");
             await LoadData();
-        }
-        else
-        {
-            await JS.InvokeVoidAsync("ShowAlert", "Delete failed");
         }
     }
 
