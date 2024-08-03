@@ -165,5 +165,15 @@ namespace Repositories.Implements
                 throw new Exception("Error updating Payment Status", ex);
             }
         }
+
+        public Order? UpdateOrderDetails(Order obj, Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order? UpdateDiscount(Guid couponCode, Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
