@@ -1,4 +1,7 @@
+@using Customer.Models
+@using Customer.Services
 @page "/menu"
+@inject ProductSVC ProductSVC
 
 <PageTitle>Menu</PageTitle>
 
@@ -348,3 +351,12 @@
     </div>
 
 </div>
+
+@code {
+    private List<object> productsDemo = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ProductSVC.GetAllProductsAsync();
+    }
+}

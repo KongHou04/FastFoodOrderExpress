@@ -84,4 +84,20 @@ public interface IOrderRES
     /// </returns>
     /// <exception cref="Exception">Thrown if an error occurs while retrieving the deleting order.</exception>
     public bool Delete(Guid id);
+
+    /// <summary>
+    /// Updates the discount of an order.
+    /// </summary>
+    /// <param name="couponCode">The coupon code to apply.</param>
+    /// <param name="id">The unique identifier of the order to update.</param>
+    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found.</returns>
+    Order? UpdateDiscount(Guid couponCode, Guid id);
+
+    /// <summary>
+    /// Updates the order details.
+    /// </summary>
+    /// <param name="obj">The updated order details to save in the database.</param>
+    /// <param name="id">The unique identifier of the order to be updated.</param>
+    /// <returns>The updated order if the update was successful, or <c>null</c> if no matching order was found.</returns>
+    Order? UpdateOrderDetails(Order obj, Guid id);
 }
