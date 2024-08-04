@@ -1,0 +1,54 @@
+﻿@page "/Product"
+@inject NavigationManager NavigationManager
+
+<h3>AdminProduct</h3>
+<NavLink class="btn btn-primary" href="/CreateProduct">Create</NavLink>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Unit Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.UnitPrice</td>
+                <td>
+                    <NavLink class="btn btn-warning" href="@($"/EditProduct/{product.Id}")">Edit</NavLink>
+                    <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Product> products = new List<Product>
+    {
+        new Product { Id = Guid.NewGuid(), Name = "Product 1", UnitPrice = 100, Image = "", Description = "Description 1" },
+        new Product { Id = Guid.NewGuid(), Name = "Product 2", UnitPrice = 200, Image = "", Description = "Description 2" },
+    };
+
+    private void DeleteProduct(Guid id)
+    {
+        var product = products.FirstOrDefault(p => p.Id == id);
+        if (product != null)
+        {
+            products.Remove(product);
+        }
+    }
+
+    public class Product
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public double UnitPrice { get; set; } = 0;
+        public string Image { get; set; } = string.Empty;
+        public string? Description { get; set; }
+    }
+}

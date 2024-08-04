@@ -1,0 +1,54 @@
+﻿@page "/CreateProduct"
+@inject NavigationManager NavigationManager
+
+<h3>CreateAdminProduct</h3>
+
+<EditForm Model="product" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name</label>
+        <InputText id="name" class="form-control" @bind-Value="product.Name" />
+    </div>
+    <div class="form-group">
+        <label for="price">Unit Price</label>
+        <InputNumber id="price" class="form-control" @bind-Value="product.UnitPrice" />
+    </div>
+    <div class="form-group">
+        <label for="image">Image</label>
+        <InputFile OnChange="HandleImageChange" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <InputTextArea id="description" class="form-control" @bind-Value="product.Description" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+@code {
+    private Product product = new Product();
+
+    private void HandleValidSubmit()
+    {
+        product.Id = Guid.NewGuid();
+        NavigationManager.NavigateTo("/Product");
+    }
+
+    private async Task HandleImageChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+        product.Image = Convert.ToBase64String(buffer);
+    }
+
+    public class Product
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public double UnitPrice { get; set; } = 0;
+        public string Image { get; set; } = string.Empty;
+        public string? Description { get; set; }
+    }
+}
