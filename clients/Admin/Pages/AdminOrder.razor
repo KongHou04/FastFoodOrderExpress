@@ -1,0 +1,66 @@
+﻿@page "/orders"
+@using Customer.DTOs
+@using Customer.Services
+@inject OrderSVC orderSVC
+
+<h3>Order List</h3>
+
+@if (orders == null)
+{
+    <p>Loading...</p>
+}
+else if (!orders.Any())
+{
+    <p>No orders available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order Time</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>SubTotal</th>
+                <th>Discount</th>
+                <th>Total</th>
+                <th>Note</th>
+                <th>Delivery Status</th>
+                <th>Payment Status</th>
+                <th>Is Canceled</th>
+                <th>CustomerId</th>
+                <th>CouponId</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderTime</td>
+                    <td>@order.Address</td>
+                    <td>@order.Email</td>
+                    <td>@order.SubTotal</td>
+                    <td>@order.Discount</td>
+                    <td>@order.Total</td>
+                    <td>@order.Note</td>
+                    <td>@orderSVC.GetDeliveryStatus(order.DeliveryStatus)</td>
+                    <td>@orderSVC.GetPaymentStatus(order.PaymentStatus)</td>
+                    <td>@order.IsCanceled</td>
+                    <td>@order.CustomerId</td>
+                    <td>@order.CouponId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<OrderDTO>? orders;
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await orderSVC.GetAllOrders();
+    }
+}
